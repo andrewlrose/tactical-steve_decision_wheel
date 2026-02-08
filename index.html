@@ -264,59 +264,80 @@ config = {
 
     <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
 
-<style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            background-color: #0a0a14; /* Tactical Dark */
-            color: #00ffff; /* Cyan Glow */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
+    <style>
         #status {
-            text-align: center;
-            z-index: 10;
-        }
-
-        .glow-box {
-            border: 3px solid #00ffff;
-            border-radius: 20px;
-            box-shadow: 0 0 20px #00ffff;
-            width: 300px;
-            margin-bottom: 20px;
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 20px;
+            margin-left: 30px;
+            font-weight: bold;
+            color: rgb(120, 120, 120);
         }
 
         #progress {
-            height: 10px;
+            height: 20px;
             width: 300px;
-            appearance: none;
         }
 
-        #progress::-webkit-progress-bar {
-            background-color: #1a1a2d;
-            border-radius: 5px;
-        }
+        div.emscripten { text-align: center; }
+        div.emscripten_border { border: 1px solid black; }
+        div.thick_border { border: 4px solid black; }
 
-        #progress::-webkit-progress-value {
-            background-color: #00ffff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px #00ffff;
-        }
-
+        /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+        /* average size of droid screen 470dp x 320dp  */
         canvas.emscripten {
             border: 0px none;
             background-color: transparent;
             width: 100%;
             height: 100%;
             z-index: 5;
+
+            padding: 0;
+            margin: 0 auto;
+
             position: absolute;
             top: 0;
+            bottom: 0;
             left: 0;
+            right: 0;
+        }
+
+        body {
+            font-family: arial;
+            margin: 0;
+            padding: none;
+            background-color:powderblue;
+        }
+
+        .topright{
+           position:absolute;
+           top:0px;
+           right:0px;
+        }
+
+        .bottomright {
+            position:absolute;
+            top: 40%;
+            right: 0px;
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trinfo{
+           position:relative;
+           right:0px;
+           border: 1px solid black;
+        }
+
+        .framed{
+           position:relative;
+           top:150px;
+           right:10px;
+           border: 1px solid black;
         }
     </style>
 
@@ -326,14 +347,11 @@ config = {
 
 <body>
 
-<div id="transfer" align=center>
-        <div id="status">
-            <img src="splash.png" class="glow-box" onerror="this.style.display='none'">
-            <h2 style="letter-spacing: 5px; color: #00ffff;">TACTICAL STEVE BOOTING...</h2>
-            <div class="emscripten">
-                <progress value="0" max="100" id="progress"></progress>
-            </div>
-            <p id="loading-msg" style="color: #00ffff;">INITIALIZING SYSTEMS</p>
+    <div id="transfer" align=center>
+<!--        <div class="spinner" id='spinner'></div> -->
+        <div class="emscripten" id="status">Downloading...</div>
+        <div class="emscripten">
+            <progress value="0" max="100" id="progress"></progress>
         </div>
     </div>
 
